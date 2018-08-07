@@ -337,6 +337,7 @@ private:
   QCheckBox *ui_pre;
   QCheckBox *ui_flip;
   QCheckBox *ui_guard;
+  QCheckBox *ui_reverse;
 
   AOButton *ui_custom_objection;
   AOButton *ui_realization;
@@ -481,6 +482,7 @@ private slots:
   void on_pre_clicked();
   void on_flip_clicked();
   void on_guard_clicked();
+  void on_reverse_clicked();
 
   void on_evidence_button_clicked();
 
