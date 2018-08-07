@@ -145,7 +145,6 @@ Courtroom::Courtroom(AOApplication *p_ao_app) : QMainWindow()
   ui_guard->hide();
   ui_reverse = new QCheckBox(this);
   ui_reverse->setText("Reverse");
-  ui_reverse->hide();
 
   ui_custom_objection = new AOButton(this, ao_app);
   ui_realization = new AOButton(this, ao_app);
