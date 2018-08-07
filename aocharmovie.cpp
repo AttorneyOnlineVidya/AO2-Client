@@ -56,24 +56,40 @@ void AOCharMovie::play(QString p_char, QString p_emote, QString emote_prefix)
   m_movie->start();
 }
 
-void AOCharMovie::play_pre(QString p_char, QString p_emote, int duration)
+void AOCharMovie::play_pre(QString p_char, QString p_emote, int duration, int reverse)
 {
   QString gif_path = ao_app->get_character_path(p_char) + p_emote.toLower();
 
   m_movie->stop();
   this->clear();
   m_movie->setFileName(gif_path);
-  m_movie->jumpToFrame(0);
-
+  if (reverse != 0):
+  {
+    m_movie->jumpToFrame(m_movie->frameCount());
+  }
+  else
+  {
+    m_movie->jumpToFrame(0);
+  }
   int full_duration = duration * time_mod;
   int real_duration = 0;
 
   play_once = false;
-
-  for (int n_frame = 0 ; n_frame < m_movie->frameCount() ; ++n_frame)
+  if (reverse != 0):
   {
-    real_duration += m_movie->nextFrameDelay();
-    m_movie->jumpToFrame(n_frame + 1);
+    for (int n_frame = m_movie->frameCount() ; n_frame > 0 ; --n_frame)
+    {
+      real_duration += m_movie->nextFrameDelay();
+      m_movie->jumpToFrame(n_frame - 1);
+    }
+  }
+  else
+  {
+    for (int n_frame = 0 ; n_frame < m_movie->frameCount() ; ++n_frame)
+    {
+      real_duration += m_movie->nextFrameDelay();
+      m_movie->jumpToFrame(n_frame + 1);
+    }
   }
   qDebug() << "full_duration: " << full_duration;
   qDebug() << "real_duration: " << real_duration;
