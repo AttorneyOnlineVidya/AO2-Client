@@ -2098,6 +2098,11 @@ void Courtroom::on_flip_clicked()
   ui_ic_chat_message->setFocus();
 }
 
+void Courtroom::on_reverse_clicked()
+{
+  ui_ic_chat_message->setFocus();
+}
+
 void Courtroom::on_guard_clicked()
 {
   ui_ic_chat_message->setFocus();
