@@ -53,6 +53,7 @@ struct chatmessage_type
   int cid;
   int sfx_delay;
   int flip;
+  int reverse;
 };
 
 struct area_type
@@ -92,7 +93,8 @@ enum CHAT_MESSAGE
   EVIDENCE_ID,
   FLIP,
   REALIZATION,
-  TEXT_COLOR
+  TEXT_COLOR,
+  REVERSE
 };
 
 enum COLOR
