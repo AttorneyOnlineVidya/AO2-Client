@@ -143,6 +143,8 @@ Courtroom::Courtroom(AOApplication *p_ao_app) : QMainWindow()
   ui_guard = new QCheckBox(this);
   ui_guard->setText("Guard");
   ui_guard->hide();
+  ui_reverse = new QCheckBox(this);
+  ui_reverse->setText("Reverse");
 
   ui_custom_objection = new AOButton(this, ao_app);
   ui_realization = new AOButton(this, ao_app);
@@ -244,6 +246,7 @@ Courtroom::Courtroom(AOApplication *p_ao_app) : QMainWindow()
   connect(ui_pre, SIGNAL(clicked()), this, SLOT(on_pre_clicked()));
   connect(ui_flip, SIGNAL(clicked()), this, SLOT(on_flip_clicked()));
   connect(ui_guard, SIGNAL(clicked()), this, SLOT(on_guard_clicked()));
+  connect(ui_reverse, SIGNAL(clicked()), this, SLOT(on_reverse_clicked()));
 
   connect(ui_evidence_button, SIGNAL(clicked()), this, SLOT(on_evidence_button_clicked()));
 
@@ -449,6 +452,8 @@ void Courtroom::set_widgets()
   set_size_and_pos(ui_flip, "flip");
 
   set_size_and_pos(ui_guard, "guard");
+
+  set_size_and_pos(ui_reverse, "reverse");
 
   set_size_and_pos(ui_custom_objection, "custom_objection");
   ui_custom_objection->set_image("custom.png");
@@ -799,6 +804,7 @@ void Courtroom::on_chat_return_pressed()
   //placeholder#
   //realization#
   //text_color#%
+  //reverse#
 
   QStringList packet_contents;
 
@@ -901,6 +907,15 @@ void Courtroom::on_chat_return_pressed()
 
   packet_contents.append(f_text_color);
 
+  QString f_reverse;
+
+  if (ui_reverse->isChecked())
+    f_reverse = "1";
+  else
+    f_reverse = "0";
+
+  packet_contents.append(f_flip);
+  
   ao_app->send_server_packet(new AOPacket("MS", packet_contents));
 }
 
@@ -1228,8 +1243,12 @@ void Courtroom::play_preanim()
     qDebug() << "could not find " + ao_app->get_character_path(f_char) + f_preanim.toLower() + ".gif";
     return;
   }
-
-  ui_vp_player_char->play_pre(f_char, f_preanim, preanim_duration);
+  int is_reversed = 0;
+  if (m_chatmessage[REVERSE] == "1")
+  {
+	  is_reversed = 1;
+  }
+  ui_vp_player_char->play_pre(f_char, f_preanim, preanim_duration, is_reversed);
   anim_state = 1;
   if (text_delay >= 0)
     text_delay_timer->start(text_delay);
@@ -2076,6 +2095,18 @@ void Courtroom::on_pre_clicked()
 
 void Courtroom::on_flip_clicked()
 {
+  ui_ic_chat_message->setFocus();
+}
+
+void Courtroom::on_reverse_clicked()
+{
+  if (ui_pre->isChecked() == false)
+  {
+	  if(ui_reverse->isChecked())
+	  {
+		  ui_pre->setChecked(false)
+	  }
+  }
   ui_ic_chat_message->setFocus();
 }
 

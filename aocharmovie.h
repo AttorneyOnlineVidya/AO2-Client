@@ -17,7 +17,7 @@ public:
   AOCharMovie(QWidget *p_parent, AOApplication *p_ao_app);
 
   void play(QString p_char, QString p_emote, QString emote_prefix);
-  void play_pre(QString p_char, QString p_emote, int duration);
+  void play_pre(QString p_char, QString p_emote, int duration, int reverse);
   void play_talking(QString p_char, QString p_emote);
   void play_idle(QString p_char, QString p_emote);
 
