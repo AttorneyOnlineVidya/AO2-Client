@@ -2100,6 +2100,13 @@ void Courtroom::on_flip_clicked()
 
 void Courtroom::on_reverse_clicked()
 {
+  if (ui_pre->isChecked() == false)
+  {
+	  if(ui_reverse->isChecked())
+	  {
+		  ui_pre->setChecked(false)
+	  }
+  }
   ui_ic_chat_message->setFocus();
 }
 
